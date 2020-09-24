@@ -1,4 +1,5 @@
 from environtments.environment import Environment
+from environtments.floor import Floor
 from agents.agent import Agent
 
 e = Environment()
@@ -19,8 +20,18 @@ try:
 except ValueError as i:
     print("Error")
 
-
+print()
 
 print(e)
 print(e.__len__())
+
+floor = Floor(2, 5)
+
+print(floor.__len__())
+print(floor)
+
+print(floor.rows)
+print(floor.columns)
+floor.dirty_squares()
+print(floor)
 

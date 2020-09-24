@@ -10,7 +10,7 @@ __status__ = "Developing"
 
 __version__ = "1.0"
 
-__date__ = "jan/01/2020"
+__date__ = "sep/23/2020"
 
 __author__ = "Oscar Martínez"
 
