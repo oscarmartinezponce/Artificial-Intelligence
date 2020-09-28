@@ -2,10 +2,12 @@
 # -*- coding: utf-8 -*-
 
 from agents.agent import Agent
+from threading import Thread
+from time import sleep
 
 __email__ = "oscar07112009@hotmail.com"
 __license__ = "GPL"
-__maintainer__ = "Oscar Martínez, Fernanda Alvarez"
+__maintainer__ = "Oscar Martínez"
 __status__ = "Developing"
 
 __version__ = "1.0"
@@ -27,6 +29,7 @@ class Environment:
     def __init__(self) -> None:
         """Initializes a list of agents."""
         self.__agents = []
+        self.__kill_thread = 0
 
     def __len__(self) -> int:
         """Returns the total number of agents."""
@@ -47,6 +50,7 @@ class Environment:
 
     def add_agent(self, agent: Agent) -> None:
         """Adds an agent in the environment list."""
+        agent.environment = self
         self.__agents.append(agent)
 
     def remove_agent(self, agent: Agent) -> None:
@@ -69,6 +73,22 @@ class Environment:
         """Returns an agent from the list of environment, if the agent does not
         exist it throws an error of type ValueError."""
         return self.__agents[index]
+
+    def run(self, func: object, delay: int) -> None:
+        """Description"""
+        def aux_func():
+            while not self.__kill_thread:
+                func()
+                sleep(delay)
+            self.__kill_thread = 0
+
+        t = Thread(target=aux_func)
+        t.start()
+
+    def exit(self) -> None:
+        """Description"""
+        self.__kill_thread = 1
+
 
     def percept(self, agent: Agent) -> None:
         """This method must be rewritten by the child class."""

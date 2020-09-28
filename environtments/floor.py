@@ -3,11 +3,11 @@
 
 from environtments.environment import Environment
 from agents.agent import Agent
-import random
+from random import randint as ran
 
 __email__ = "oscar07112009@hotmail.com"
 __license__ = "GPL"
-__maintainer__ = "Oscar Martínez, Fernanda Alvarez"
+__maintainer__ = "Oscar Martínez"
 __status__ = "Developing"
 
 __version__ = "1.0"
@@ -37,7 +37,7 @@ class Floor(Environment):
     def __init__(self, rows: int = 1, columns: int = 2):
         """Sets the number of rows, and columns, also initializes the list of
         squares cleans"""
-        super(Environment, self).__init__()
+        super().__init__()
         self.__squares = [[Floor._clean for i in range(columns)] for j in range(rows)]
 
     def __len__(self):
@@ -56,12 +56,12 @@ class Floor(Environment):
 
     @property
     def rows(self) -> int:
-        """Method description (DocString)"""
+        """Returns the number of rows that floor has."""
         return self.__squares.__len__()
 
     @property
     def columns(self) -> int:
-        """Method description (DocString)"""
+        """Returns the number of columns that floor has."""
         return self.__squares[0].__len__()
 
     # _________________________________Getters_________________________________
@@ -88,9 +88,14 @@ class Floor(Environment):
 
     def dirty_squares(self) -> None:
         """Dirties the floor in random rooms"""
-        self.__squares = [[random.randint(Floor._clean, Floor._dirty)
-                           for i in range(self.__squares[0].__len__())]
-                          for j in range(self.__squares.__len__())]
+        row = ran(0, self.__squares.__len__() - 1)
+        column = ran(0, self.__squares[0].__len__() - 1)
+        self.__squares[row][column] = Floor._dirty
+        print("Ensuciamos el piso y quedo así: ", self.__str__())
+
+    def run(self, delay: int):
+        """This"""
+        super().run(self.dirty_squares, delay)
 
     def percept(self, agent: Agent) -> None:
         """This method reports to the agent how is the floor."""

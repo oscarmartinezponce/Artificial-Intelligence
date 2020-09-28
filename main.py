@@ -1,37 +1,20 @@
-from environtments.environment import Environment
 from environtments.floor import Floor
-from agents.agent import Agent
-
-e = Environment()
-
-print(e)
-print(e.__len__())
-
-a = Agent()
-
-e.add_agent(a)
-print(e)
-print(e.__len__())
+from agents.Vacuum import Vacuum
 
 
-a2 = Agent()
-try:
-    e.remove_agent(a2)
-except ValueError as i:
-    print("Error")
+delay_vacuum = 2
+delay_floor = 4
 
-print()
+floor = Floor()
+vacuum = Vacuum()
 
-print(e)
-print(e.__len__())
+floor.add_agent(vacuum)
 
-floor = Floor(2, 5)
+print(vacuum)
 
-print(floor.__len__())
-print(floor)
+print("Iniciamos en la posición x:" + str(vacuum.pos_x) + ", y:" + str(vacuum.pos_y))
+print("El piso esta limpio: " + floor.__str__())
 
-print(floor.rows)
-print(floor.columns)
-floor.dirty_squares()
-print(floor)
+floor.run(delay_floor)
+vacuum.run(delay_vacuum)
 
