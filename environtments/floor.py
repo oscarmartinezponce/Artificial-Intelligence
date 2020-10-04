@@ -64,17 +64,22 @@ class Floor(Environment):
         """Returns the number of columns that floor has."""
         return self.__squares[0].__len__()
 
+    @property
+    def squares(self) -> list:
+        """Returns the list of squares"""
+        return self.__squares
+
     # _________________________________Getters_________________________________
 
     # _____________________________Private methods_____________________________
 
     # _____________________________Public methods______________________________
 
-    def is_dirty(self, row: int, column: int) -> bool:
+    def is_dirty(self, row: int, column: int) -> int:
         """Returns True if the floor of the room is dirty, otherwise False, if
         the row or column does not exist it throws an exception of type
         ErrorValue"""
-        return self.__squares[row][column] == Floor._dirty
+        return 1 if self.__squares[row][column] == Floor._dirty else 0
 
     def clean_square(self, row: int, column: int) -> None:
         """Cleans the floor of a room, if the row or column does not exist it
@@ -99,10 +104,6 @@ class Floor(Environment):
 
     def percept(self, agent: Agent) -> None:
         """This method reports to the agent how is the floor."""
-        pass
-
-    def execute_actions(self, agent: Agent) -> None:
-        """This method must be rewritten by the child class."""
         pass
 
     # _____________________________Public methods______________________________

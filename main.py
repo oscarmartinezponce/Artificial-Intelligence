@@ -1,5 +1,6 @@
 from environtments.floor import Floor
-from agents.Vacuum import Vacuum
+from agents.vacuum import Vacuum
+from time import sleep
 
 
 delay_vacuum = 2
@@ -16,5 +17,8 @@ print("Iniciamos en la posición x:" + str(vacuum.pos_x) + ", y:" + str(vacuum.p
 print("El piso esta limpio: " + floor.__str__())
 
 floor.run(delay_floor)
-vacuum.run(delay_vacuum)
+vacuum.run(delay_vacuum, ((0, 1), (0, 0)))
 
+while True:
+    sleep(5)
+    print(vacuum)

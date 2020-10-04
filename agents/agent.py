@@ -72,7 +72,7 @@ class Agent:
             name = key.split("_")
 
             if name[0] == Agent._action:
-                self.__actions[name[1]] = value
+                self.__actions[name[1] + "_" + name[2]] = value
 
     # _____________________________Private methods_____________________________
 
@@ -82,11 +82,11 @@ class Agent:
         """Returns the action of the state."""
         return self.__actions[state]
 
-    def run(self, func: object, delay: int) -> None:
+    def run(self, func: object, delay: int, target: tuple) -> None:
         """Description"""
         def aux_func():
             while not self.__kill_thread:
-                func()
+                func(target)
                 sleep(delay)
             self.__kill_thread = 0
 
